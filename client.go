@@ -88,18 +88,22 @@ type AnswerEvent struct {
 	TrackID   string `json:"trackId"`
 	Timestamp uint64 `json:"timestamp"`
 	Sdp       string `json:"sdp"`
+	Refer     bool   `json:"refer"`
 }
 
 type RejectEvent struct {
 	TrackID   string `json:"trackId"`
 	Timestamp uint64 `json:"timestamp"`
 	Reason    string `json:"reason"`
+	Code      uint32 `json:"code"`
+	Refer     bool   `json:"refer"`
 }
 
 type RingingEvent struct {
 	TrackID    string `json:"trackId"`
 	Timestamp  uint64 `json:"timestamp"`
 	EarlyMedia bool   `json:"earlyMedia"`
+	Refer      bool   `json:"refer"`
 }
 
 type HangupEventAttendee struct {
@@ -119,6 +123,7 @@ type HangupEvent struct {
 	From        *HangupEventAttendee `json:"from,omitempty"`
 	To          *HangupEventAttendee `json:"to,omitempty"`
 	Extra       map[string]any       `json:"extra,omitempty"`
+	Refer       bool                 `json:"refer"`
 }
 
 type AnswerMachineDetectionEvent struct {
@@ -348,7 +353,7 @@ type RecorderOption struct {
 }
 
 type VADOption struct {
-	Type                  string  `json:"type,omitempty" comment:"vad type, silero|webrtc"`
+	Type                  string  `json:"type,omitempty" comment:"vad type, silero|ten"`
 	Samplerate            uint32  `json:"samplerate,omitempty" comment:"vad samplerate, 16000|48000"`
 	SpeechPadding         uint64  `json:"speechPadding,omitempty" comment:"vad speech padding, 120"`
 	SilencePadding        uint64  `json:"silencePadding,omitempty" comment:"vad silence padding, 200"`
@@ -398,6 +403,7 @@ type SipOption struct {
 	Username string            `json:"username,omitempty"`
 	Password string            `json:"password,omitempty"`
 	Realm    string            `json:"realm,omitempty"`
+	Contact  string            `json:"contact,omitempty"`
 	Headers  map[string]string `json:"headers,omitempty"`
 }
 
